@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Dashboard">
+    <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+
+    <title>爱德拉管理中心</title>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Admin/Css/styles.css">
+</head>
+
+<body style='background-image: url("__PUBLIC__/assets/img/login-bg.jpg");width: 100%'>
+
+<!-- **********************************************************************************************************************************************************
+MAIN CONTENT
+*********************************************************************************************************************************************************** -->
+<div class="htmleaf-container">
+    <div class="wrapper">
+        <div class="container">
+            <h1>爱德拉管理中心</h1>
+            <form class="form" method="post">
+                <input type="text" placeholder="用户名" name="username" autocomplete="off">
+                <input type="password" name="password" placeholder="密码" autocomplete="off">
+                <button type="submit" id="login-button">登录</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="__PUBLIC__/Admin/Css/jquery-2.1.1.min.js"></script>
+<script>
+    $('#login-button').click(function(event){event.preventDefault();
+        $('form').fadeOut('slow',function(){
+            $('.wrapper').addClass('form-success');
+            setTimeout(a,1000);
+        });
+
+    });
+    function a(){
+        $('form').attr('action','__URL__/doLogin').submit();
+    }
+</script>
+</body>
+</html>

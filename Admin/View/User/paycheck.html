@@ -1,0 +1,137 @@
+<extend name="Public/base.html"/>
+<block name="content">
+    <style>
+        table tr th,td{
+            text-align: center;
+        }
+        .pages a,
+        .pages span {
+            display: inline-block;
+            padding: 2px 5px;
+            margin: 0 1px;
+            border: 1px solid #f0f0f0;
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            border-radius: 3px;
+        }
+
+        .pages a,
+        .pages li {
+            display: inline-block;
+            list-style: none;
+            text-decoration: none;
+            color: #58A0D3;
+        }
+
+        .pages a.first,
+        .pages a.prev,
+        .pages a.next,
+        .pages a.end {
+            margin: 0;
+        }
+
+        .pages a:hover {
+            border-color: #50A8E6;
+        }
+
+        .pages span.current {
+            background: #50A8E6;
+            color: #FFF;
+            font-weight: 700;
+            border-color: #50A8E6;
+        }
+        pre{font-family:'微软雅黑'}
+        td{
+            vertical-align: middle !important;
+        }
+    </style>
+    <div id="main">
+        <ul class="nav nav-tabs" style="margin: 20px 20px 0;">
+            <li role="presentation"><a href="{:U('user/index')}">用户信息</a></li>
+            <li role="presentation" class="active"><a href="{:U('user/paycheck')}">充值记录</a></li>
+            <li role="presentation"><a href="{:U('user/consume')}">消费记录</a></li>
+        </ul>
+        <div class="col-lg-12">
+            <div class="col-lg-12" style="margin: 40px 0 20px;">
+                <form class="form-inline" action="{:U('user/paycheck')}" method="get">
+                    <div class="form-group">
+                        <label for="key">关键字：</label>
+                        <input type="text" class="form-control" id="key" autocomplete="off" name="key" placeholder="请输入用户名（账号）">
+                    </div>
+                    <button type="submit" class="btn btn-default">搜索</button>
+                </form>
+            </div>
+            <div class="col-lg-12 mt">
+                <table class="table table-bordered table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th>订单号</th>
+                        <th>用户名</th>
+                        <th>充值方式</th>
+                        <th>充值金额</th>
+                        <th>充值时间</th>
+                        <th>充值状态</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <foreach name="list" item="vo">
+                        <tr id="tr-{$vo.id}">
+                            <td>{$vo.out_trade_no}</td>
+                            <td>{$vo.uname}</td>
+                            <td>{$vo.cate}</td>
+                            <td>{$vo.price}</td>
+                            <td>{$vo.create_time}</td>
+                            <td>
+                                <eq name="vo.state" value="0">
+                                    <button class="btn btn-danger" disabled>未支付</button>
+                                    <else/>
+                                    <button class="btn btn-success" disabled>已支付</button>
+                                </eq>
+                            </td>
+                            <td>
+                                <eq name="Think.session.admin_role" value="0">
+                                    <i class="glyphicon glyphicon-trash pointer" onclick="doDel('{$vo.id}')"></i>
+                                    <else/>
+                                    --
+                                </eq>
+                            </td>
+                        </tr>
+                    </foreach>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-lg-12">
+                <div class="pages" style="margin-top: 20px;margin-left:45%;">
+                    {$pageinfo}
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="__PUBLIC__/Admin/Js/jquery-1.8.3.min.js"></script>
+    <!--删除-->
+    <script>
+        function doDel(id){
+            if(confirm('删除后无法恢复，是否删除？')){
+                $.ajax({
+                    url:'{:U(\'user/deal\')}',
+                    type:'post',
+                    async:false,
+                    data:{id:id,cate:'order'},
+                    dataType:'json',
+                    success:function(data){
+                        if(data){
+                            $('#tr-'+id).remove();
+                        }
+                    },
+                    error:function(){
+
+                    }
+                })
+            }
+        }
+    </script>
+    <script>
+        $('#yonghu').addClass('active').siblings().removeClass('active');
+    </script>
+</block>

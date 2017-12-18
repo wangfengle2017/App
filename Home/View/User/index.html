@@ -1,0 +1,52 @@
+<extend name="Public/Public.html"/>
+<block name="content">
+    <style>
+        .annu{
+            display: inline-block;
+            padding: 10px 50px;
+            background: #0D98E6;
+            margin: 15px;
+            border-radius:6px;
+            color: #fff;
+        }
+    </style>
+    <!--<section class="container">-->
+    <div>
+        <!--banner-->
+        <div>
+            <img src="__PUBLIC__/Upload/Pic/{$pic.banner}" alt="" style="width: 100%;">
+        </div>
+        <!--banner end-->
+        <!--content-->
+        <div style="margin: 20px 0;text-align: center;  ">
+            <div style="text-align: center;">
+                <span style="color:#0D98E6;font-size: 18px;font-family: '微软雅黑', 'MicrosoftYaHei';">{$Think.cookie.user}</span>
+            </div>
+            <div style="margin-top: 30px;display: inline-block;">
+                <img src="__PUBLIC__/Index/Images/yeicon.jpg" alt="" width="20">
+            </div>
+            <div style="color:#0D98E6;font-size: 20px;font-family: '微软雅黑', 'MicrosoftYaHei';margin-left: 2px;display: inline-block;">我的余额：<span>{$list.ye}</span>元</div>
+            <div>
+                <div style="margin: 10px 0;text-align: center;">
+                    <a href="{:U('user/cz')}" class="pointer">
+                        <div class="annu ">充值中心</div>
+                    </a>
+                    <a href="{:U('user/xc')}" class="pointer">
+                        <div class="annu">洗车服务</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!--content end-->
+        <!--logo-->
+        <div style="width: 70%;margin-left: 15%;margin-top: 50px;">
+            <img src="__PUBLIC__/Upload/Pic/{$pic.dlogo}" alt="" style="width: 100%;">
+        </div>
+        <!--logo end-->
+    </div>
+    <!--</section>-->
+    <script src="__PUBLIC__/Admin/Js/jquery-1.8.3.min.js"></script>
+    <script>
+        $('#mytitle').html('大连爱德拉自助洗车-个人中心');
+    </script>
+</block>

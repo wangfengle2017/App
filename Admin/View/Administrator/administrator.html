@@ -1,0 +1,58 @@
+<extend name="Public/base.html"/>
+<block name="content">
+    <ul class="nav nav-tabs" style="margin: 20px 50px;">
+        <li>
+            <a style="cursor: pointer">修改密码</a>
+        </li>
+    </ul>
+    <!--edit start-->
+    <div style="margin: 20px 60px;">
+        <div id="edit" class="row" style="border-right: 1px solid #ddd;">
+            <div style="background: #fff;margin-top:60px;">
+                <form id="editform" class="form-horizontal" method="post">
+                    <input type="hidden" class="form-control" name="ename" value="{$Think.session.admin_user}">
+                    <div class="form-group">
+                        <label class="col-sm-4" style="text-align: right;font-size: 20px;">新密码</label>
+                        <div class="col-sm-4">
+                            <input type="password" class="form-control" name="epassword">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4" style="text-align: right;font-size: 20px;">确认密码</label>
+                        <div class="col-sm-4">
+                            <input type="password" class="form-control" name="erepassword">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12" style="text-align: center;padding: 10px;">
+                            <button onclick="onEdit()" class="btn btn-success" style="padding: 8px 30px;font-size: 18px;">修改</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--edit end-->
+    <div id="msg" style="background: #51DA07;color: #fff;position:absolute;top: 120px;left:45%;display: none;">
+        <span id="msg-content" style="font-size: 14px;padding: 10px"></span>
+    </div>
+    <script src="__PUBLIC__/Admin/Js/jquery-1.8.3.min.js"></script>
+    <!--修改信息-->
+    <script>
+        function onEdit()
+        {
+            if($('input[name="erepassword"]').val() != $('input[name="epassword"]').val()){
+                $('#msg-content').html('亲，两次密码不一致');
+                $('#msg').css('display','block');
+                return false;
+            }else{
+                $('#editform').attr('action','{:U(\'administrator/adupdate\')}').submit();
+            }
+            return false;
+        }
+    </script>
+    <!--删除-->
+    <script>
+        $('#user').addClass('active').siblings().removeClass('active');
+    </script>
+</block>

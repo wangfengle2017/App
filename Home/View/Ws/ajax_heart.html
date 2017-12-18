@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>心跳判断</title>
+</head>
+<body>
+    <span id="ajax_heart"></span>
+    <script src="__PUBLIC__/Admin/Js/jquery-1.8.3.min.js"></script>
+    <script>
+        $(function(){
+            heart();
+        })
+        function heart()
+        {
+            $.ajax({
+                url:'{:U(\'ws/ajax_heart\')}',
+                type:'post',
+                async:false,
+                data:{id:1},
+                dataType:'json',
+                success:function(data){
+                    $('#ajax_heart').html( data);
+                    setTimeout(function(){
+                        heart();
+                    },3000)
+                },
+                error:function(){
+                }
+            });
+        }
+    </script>
+</body>
+</html>
+    

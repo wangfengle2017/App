@@ -1,0 +1,169 @@
+<extend name="Public/Public.html"/>
+<block name="content">
+    <style>
+        .logo{
+            width: 31.4%;
+            float: left;
+            margin-top: 3%;
+            /*margin-bottom: 2%;*/
+            margin-left: 1%;
+        }
+        #header{
+            overflow: hidden;
+        }
+        #rexian{
+            float: right;
+            font-size: 0.5em;
+            font-family: "微软雅黑";
+            color: #80040b;
+            margin-top: 4%;
+            margin-right: 1%;
+        }
+        .annu{
+            display: inline-block;
+            padding: 10px 50px;
+            background: #0D98E6;
+            margin: 15px;
+            border-radius:6px;
+            color: #fff;
+            border:none;
+        }
+        .wz{
+            display: inline-block;
+            width: 30%;
+            text-align: right;
+            margin-right: 10px;
+        }
+        .inp{
+            border:1px solid #ccc;
+            height: 25px;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .yzm{
+            background: #888;
+            border-radius:6px;
+            color: #fff;
+            border:none;
+            padding:5px 15px;
+            margin-left: 10px;
+            font-size: 16px;
+        }
+    </style>
+    <!--<section class="container">-->
+    <div>
+        <div id="header">
+            <div class="logo">
+                <img src="__PUBLIC__/Upload/Pic/{$pic.xlogo}" alt="" width="100%">
+            </div>
+            <div id="rexian">全国招商热线：400-050-2016</div>
+        </div>
+        <!--banner-->
+        <div style="margin-top: 10px;">
+            <img src="__PUBLIC__/Upload/Pic/{$pic.banner}" alt="" style="width: 100%;">
+        </div>
+        <!--banner end-->
+        <!--content-->
+        <div style="margin: 20px 0;">
+            <div>
+                <div style="margin: 10px 0;">
+                    <div class="wz">
+                        <label style="text-align: right;">手机号码</label>
+                    </div>
+                    <input type="text" class="inp" name="tel" autocomplete="off">
+                </div>
+                <div style="margin: 10px 0;">
+                    <div class="wz">
+                        <label style="text-align: right;">验证码</label>
+                    </div>
+                    <input type="text" class="inp" name="yzm" autocomplete="off" style="width:60px;">
+                    <input type="button" class="yzm pointer" onclick="yzm(this)" value="获取验证码">
+                </div>
+                <div style="margin-top: 15px; margin-left: 32%">
+                    <button type="button" class="annu pointer" onclick="doSubmit()">登录</button>
+                </div>
+            </div>
+        </div>
+        <!--content end-->
+        <!--logo-->
+        <div style="width: 70%;margin-left: 15%;margin-top: 50px;">
+            <img src="__PUBLIC__/Upload/Pic/{$pic.dlogo}" alt="" style="width: 100%;">
+        </div>
+        <!--logo end-->
+    </div>
+    <!--</section>-->
+    <script src="__PUBLIC__/Admin/Js/jquery-1.8.3.min.js"></script>
+    <script>
+        function yzm(obj) {
+            var partten = /^\d{10,13}$/;
+            if (!partten.test($('input[name="tel"]').val())) {
+                alert('请输入正确的手机号码');
+                return;
+            }
+            obj.disabled = true;
+            $.ajax({
+                url: "{:U(\'login/sms\')}",
+                type: "Post",
+                data: {tel: $('input[name="tel"]').val()},
+                success: function (msg) {
+                    switch (msg) {
+                        case "1":
+                            alert("验证码已经发送");
+                            settime(obj);
+                            break;
+                        case "-5":
+                            alert("短信余额不足");
+                            break;
+                        default:
+                            alert("具体返回的值是参数值 " + msg);
+                    }
+                }
+            });
+            var countdown=60;
+            function settime(obj)
+            {
+                if (countdown == 0) {
+                    obj.removeAttribute("disabled");
+                    obj.value="获取验证码";
+                    countdown = 60;
+                    return;
+                } else {
+                    obj.setAttribute("disabled", true);
+                    obj.value="重新发送(" + countdown + ")";
+                    countdown--;
+                }
+                setTimeout(function() {
+                    settime(obj)
+                },1000)
+            }
+        }
+        function doSubmit()
+        {
+            $.ajax({
+                url: "{:U(\'login/dologin\')}",
+                type: "Post",
+                async:false,
+                data: {tel: $('input[name="tel"]').val(),yzm:$('input[name="yzm"]').val(),action:'dl'},
+                dataType:'json',
+                success: function (data) {
+                    switch (data){
+                        case -1:
+                            alert('该手机未注册');
+                            break;
+                        case -2:
+                            alert('验证码错误');
+                            break;
+                        default:
+                            window.location.href='{:U(\'user/index\')}';
+                    }
+                },
+                error:function(){
+                    alert('网络延迟，请稍后重试');
+                }
+            })
+        }
+    </script>
+    <script>
+        $('#mytitle').html('大连爱德拉自助洗车-登录');
+    </script>
+</block>
