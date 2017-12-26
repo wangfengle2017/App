@@ -1,0 +1,121 @@
+<extend name="Public/Public.html"/>
+<block name="content">
+   <style>
+      .logo
+      {
+         width: 31.4%;
+         float: left;
+         margin-top: 3%;
+         /*margin-bottom: 2%;*/
+         margin-left: 1%;
+      }
+      
+      .user
+      {
+         float: right;
+         margin-top: 3%;
+      }
+      
+      #header
+      {
+         overflow: hidden;
+      }
+
+      .annu
+      {
+         display: inline-block;
+         padding: 10px 50px;
+         background: #0D98E6;
+         margin: 10px;
+         border-radius:6px;
+         color: #fff;
+      }
+
+      .prod
+      {
+         display: inline-block;
+         padding: 10px 50px;
+         color: black;
+         background: orange;
+         margin: 20px;
+         border-radius:10px;
+      }
+      
+      
+   </style>
+        
+   <!--header-->
+   <section id="header">
+      <div class="logo">
+         <img src="__PUBLIC__/Demo/Pic/syxlogo_7462.jpg" alt="" width="100%">                    
+      </div>                
+      <div class="user">
+         <a href="{:U('login/zc')}" class="btn pointer">
+            <div class="annu ">用户</div>
+         </a>
+      <!-- 
+         <a href="{:U('login/zc')}" class="btn pointer">
+            <div class="annu ">注册</div>
+         </a>
+         <a href="{:U('login/index')}" class="btn pointer">
+            <div class="annu">登录</div>
+         </a>
+      -->
+      </div>
+   </section>
+   <!--header end-->
+         
+   <!--banner-->
+   <section style="width: 100%; margin-top: 10px;">
+      <img src="__PUBLIC__/Upload/Pic/sybanner_3629.jpg" alt="" style="width: 100%; high: 60%">
+   </section>
+   <!--banner end-->
+         
+   <!--produc zone-->
+   <section style="margin: 10px 0;text-align: center;">
+   
+      <a href="{:U('login/zc')}" class="btn pointer">
+         <div class="prod">产品1</div>
+      </a>
+      <a href="{:U('login/index')}" class="btn pointer">
+         <div class="prod">产品2</div>
+      </a>
+      <a href="{:U('login/zc')}" class="btn pointer">
+         <div class="prod">产品3</div>
+      </a>
+      <a href="{:U('login/index')}" class="btn pointer">
+         <div class="prod">产品4</div>
+      </a>
+
+      <a href="{:U('login/zc')}" class="btn pointer">
+         <div class="prod">产品5</div>
+      </a>
+      <a href="{:U('login/index')}" class="btn pointer">
+         <div class="prod">产品6</div>
+      </a>
+      <a href="{:U('login/zc')}" class="btn pointer">
+         <div class="prod">产品7</div>
+      </a>
+      <a href="{:U('login/index')}" class="btn pointer">
+         <div class="prod">更多产品</div>
+      </a>
+
+   </section>
+   <!--produc zone-->            
+         
+   <!--menu-->
+   <section id= 'menu_id' align = "left" style="width: 100%;margin-left: 1%;margin-top: 50px;">
+      <img src="__PUBLIC__/Demo/Pic/scan_512.jpg" alt="" style="width: 10%;">
+      <div class="user">
+         <a href="{:U('login/zc')}" class="btn pointer">
+            <div class="annu ">商户</div>
+         </a>
+      </div>
+   </section>
+   <!--menu end-->
+   
+   <script src="__PUBLIC__/Admin/Js/jquery-1.8.3.min.js"></script>
+   <script>
+      $('#mytitle').html('爱德拉商务平台-首页');
+   </script>
+</block>
